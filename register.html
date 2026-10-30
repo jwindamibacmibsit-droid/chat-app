@@ -1,0 +1,528 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#064e46">
+    <title>ChatApp - Create Account</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #07876e;
+            --primary-dark: #056653;
+            --dark: #063e3b;
+            --text: #172b35;
+            --muted: #788590;
+            --border: #dce5e9;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: #fff;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-height: 100vh;
+            padding: 35px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .register-container {
+            width: 100%;
+            max-width: 440px;
+        }
+
+        .mobile-brand {
+            display: none;
+            margin-bottom: 28px;
+            font-size: 27px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .mobile-brand span {
+            color: var(--primary);
+        }
+
+        h1 {
+            font-size: 36px;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        h1 span {
+            color: var(--primary-dark);
+        }
+
+        .subtitle {
+            margin-bottom: 25px;
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper input {
+            width: 100%;
+            height: 50px;
+            padding: 0 45px 0 14px;
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            outline: none;
+            background: white;
+            color: var(--text);
+            font-size: 14px;
+            transition: border .2s, box-shadow .2s;
+        }
+
+        .input-wrapper input:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(7,135,110,.10);
+        }
+
+        .input-wrapper input::placeholder {
+            color: #9aa5ae;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            color: #788590;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 11px;
+            padding: 4px;
+            border: none;
+            background: transparent;
+            color: #687781;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .password-hint {
+            margin-top: 7px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            gap: 9px;
+            margin: 19px 0;
+            font-size: 12px;
+            font-weight: normal;
+            line-height: 1.6;
+        }
+
+        .terms input {
+            margin-top: 3px;
+            accent-color: var(--primary);
+        }
+
+        a {
+            color: var(--primary-dark);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .register-button {
+            width: 100%;
+            min-height: 52px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(100deg, #07876e, #108f78);
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .register-button:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .register-button:disabled {
+            opacity: .7;
+            cursor: wait;
+            transform: none;
+        }
+
+        .status-message {
+            display: none;
+            padding: 12px 14px;
+            margin-bottom: 17px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .status-message.error {
+            display: block;
+            color: #a52828;
+            background: #fff0f0;
+            border: 1px solid #f4cccc;
+        }
+
+        .status-message.success {
+            display: block;
+            color: #056653;
+            background: #e9f8f2;
+            border: 1px solid #c7eadc;
+        }
+
+        .login-text {
+            margin-top: 24px;
+            text-align: center;
+            color: #63717c;
+            font-size: 14px;
+        }
+
+        .login-text a {
+            margin-left: 5px;
+            font-weight: 700;
+        }
+
+        .security-note {
+            margin-top: 24px;
+            text-align: center;
+            color: #98a2aa;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .left-panel {
+                display: none;
+            }
+
+            .right-panel {
+                padding: 30px 22px;
+            }
+
+            .register-container {
+                max-width: 460px;
+            }
+
+            .mobile-brand {
+                display: block;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .right-panel {
+                padding: 25px 16px;
+            }
+
+            h1 {
+                font-size: 29px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="right-panel">
+        <div class="register-container">
+
+            <div class="mobile-brand">💬 Chat<span>App</span></div>
+
+            <h1>Create <span>Account</span></h1>
+
+            <p class="subtitle">
+                Join ChatApp and start connecting with friends.
+            </p>
+
+            <div
+                id="statusMessage"
+                class="status-message"
+                role="alert"
+                aria-live="polite">
+            </div>
+
+            <form id="registerForm">
+
+                <div class="form-group">
+                    <label for="fullName">Full name</label>
+
+                    <div class="input-wrapper">
+                        <input
+                            type="text"
+                            id="fullName"
+                            name="name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            maxlength="100"
+                            required>
+
+                        <span class="input-icon" aria-hidden="true">♙</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email address</label>
+
+                    <div class="input-wrapper">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            maxlength="254"
+                            required>
+
+                        <span class="input-icon" aria-hidden="true">✉</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+
+                    <div class="input-wrapper">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            minlength="8"
+                            maxlength="128"
+                            required>
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="password"
+                            aria-label="Show password"
+                            aria-pressed="false">◉</button>
+                    </div>
+
+                    <p class="password-hint">
+                        Use at least 8 characters.
+                    </p>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm password</label>
+
+                    <div class="input-wrapper">
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            placeholder="Enter your password again"
+                            autocomplete="new-password"
+                            minlength="8"
+                            maxlength="128"
+                            required>
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            data-target="confirmPassword"
+                            aria-label="Show confirmation password"
+                            aria-pressed="false">◉</button>
+                    </div>
+                </div>
+
+                <label class="terms">
+                    <input type="checkbox" id="agreeTerms" required>
+
+                    <span>
+                        I agree to the
+                        <a href="terms.html">Terms of Service</a>
+                        and
+                        <a href="privacy.html">Privacy Policy</a>.
+                    </span>
+                </label>
+
+                <button
+                    type="submit"
+                    class="register-button"
+                    id="registerButton">
+                    Create Account →
+                </button>
+
+            </form>
+
+            <p class="login-text">
+                Already have an account?
+                <a href="index.html">Log In</a>
+            </p>
+
+            <p class="security-note">
+                🔒 Your information should always be protected.
+            </p>
+
+        </div>
+    </main>
+
+    <!-- Supabase JS client. Use only your project's publishable/anon key in browser code. -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Replace these two placeholders with the values from Supabase:
+        // Project Settings -> API (or Connect). Never put a secret/service_role key here.
+        const SUPABASE_URL = "https://ukyfgyrmcwolczqrrcfj.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vK7hfRduvDiFoN06clnzvQ_1K2STxf_";
+
+        const { createClient } = supabase;
+        const supabaseClient = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY
+        );
+
+        const form = document.getElementById("registerForm");
+        const fullName = document.getElementById("fullName");
+        const email = document.getElementById("email");
+        const password = document.getElementById("password");
+        const confirmPassword = document.getElementById("confirmPassword");
+        const agreeTerms = document.getElementById("agreeTerms");
+        const registerButton = document.getElementById("registerButton");
+        const statusMessage = document.getElementById("statusMessage");
+
+        function showMessage(message, type = "error") {
+            statusMessage.textContent = message;
+            statusMessage.className = "status-message " + type;
+        }
+
+        function clearMessage() {
+            statusMessage.textContent = "";
+            statusMessage.className = "status-message";
+        }
+
+        // Show or hide each password field.
+        document.querySelectorAll(".toggle-password").forEach(button => {
+            button.addEventListener("click", function () {
+                const input = document.getElementById(this.dataset.target);
+                const show = input.type === "password";
+
+                input.type = show ? "text" : "password";
+                this.textContent = show ? "◎" : "◉";
+                this.setAttribute("aria-pressed", String(show));
+                this.setAttribute(
+                    "aria-label",
+                    show ? "Hide password" : "Show password"
+                );
+            });
+        });
+
+        // Validate passwords while typing.
+        function validatePasswordMatch() {
+            confirmPassword.setCustomValidity(
+                confirmPassword.value &&
+                confirmPassword.value !== password.value
+                    ? "Passwords do not match."
+                    : ""
+            );
+        }
+
+        password.addEventListener("input", validatePasswordMatch);
+        confirmPassword.addEventListener("input", validatePasswordMatch);
+
+        // Create an account using Supabase Auth.
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            clearMessage();
+            validatePasswordMatch();
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!agreeTerms.checked) {
+                showMessage("Please agree to the Terms of Service.");
+                return;
+            }
+
+            registerButton.disabled = true;
+            registerButton.textContent = "Creating account...";
+
+            try {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email.value.trim(),
+                    password: password.value,
+                    options: {
+                        data: {
+                            full_name: fullName.value.trim()
+                        }
+                    }
+                });
+
+                if (error) {
+                    throw error;
+                }
+
+                // A PostgreSQL trigger inserts the profile into public.chats_users.
+                // Do not insert from the browser; that can fail due to RLS policies.
+                form.reset();
+
+                showMessage(
+                    data.session
+                        ? "Account created successfully! Your profile is saved. You can now log in."
+                        : "Registration submitted! Check your email for confirmation. The database trigger saves your profile when the account is created.",
+                    "success"
+                );
+
+                const loginLink = document.createElement("a");
+                loginLink.href = "login.html";
+                loginLink.textContent = " Go to login";
+                loginLink.style.display = "inline-block";
+                loginLink.style.marginTop = "10px";
+                statusMessage.appendChild(document.createElement("br"));
+                statusMessage.appendChild(loginLink);
+
+            } catch (error) {
+                console.error("Supabase registration error:", error);
+                const message = error && error.message ? error.message : "Registration failed. Please try again.";
+                showMessage(message);
+            } finally {
+                registerButton.disabled = false;
+                registerButton.textContent = "Create Account →";
+            }
+        });
+    </script>
+
+</body>
+</html>

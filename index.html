@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#064e46">
+    <title>ChatApp - Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            background: #fff;
+            color: #172b35;
+        }
+
+        .right-panel {
+            flex: 1;
+            min-height: 100vh;
+            padding: 40px 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 430px;
+        }
+
+        .mobile-logo {
+            display: none;
+            color: #07564e;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 35px;
+        }
+
+        .mobile-logo span {
+            color: #07876e;
+        }
+
+        h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        h1 span {
+            color: #07876e;
+        }
+
+        .subtitle {
+            color: #788590;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 53px;
+            padding: 0 48px 0 15px;
+            border: 1px solid #dce5e9;
+            border-radius: 9px;
+            font-size: 15px;
+            outline: none;
+        }
+
+        .input-box input:focus {
+            border-color: #07876e;
+            box-shadow: 0 0 0 3px rgba(7,135,110,.1);
+        }
+
+        .input-box input::placeholder {
+            color: #9aa5ae;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 17px;
+            color: #788590;
+            pointer-events: none;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            border: none;
+            background: none;
+            font-size: 19px;
+            cursor: pointer;
+            color: #52636b;
+        }
+
+        .options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin: 5px 0 25px;
+            font-size: 13px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-weight: normal;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .remember input {
+            accent-color: #07876e;
+        }
+
+        a {
+            color: #07876e;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 53px;
+            border: none;
+            border-radius: 9px;
+            background: #07876e;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .2s;
+        }
+
+        .login-button:hover {
+            background: #056653;
+        }
+
+        .login-button:disabled,
+        .google-button:disabled {
+            opacity: .7;
+            cursor: wait;
+        }
+
+        .message {
+            display: none;
+            padding: 12px;
+            margin-bottom: 18px;
+            border-radius: 8px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .message.error {
+            display: block;
+            color: #a52828;
+            background: #fff0f0;
+        }
+
+        .message.success {
+            display: block;
+            color: #056653;
+            background: #e7f7ef;
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin: 25px 0;
+            color: #909aa4;
+            font-size: 13px;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #dce5e9;
+        }
+
+        .google-button {
+            width: 100%;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            border: 1px solid #dce5e9;
+            border-radius: 9px;
+            background: white;
+            color: #394954;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .google-button:hover {
+            background: #f8fbfa;
+        }
+
+        .google-icon {
+            font-size: 21px;
+            color: #4285f4;
+            font-weight: bold;
+        }
+
+        .signup {
+            text-align: center;
+            margin-top: 28px;
+            color: #63717c;
+            font-size: 14px;
+        }
+
+        .signup a {
+            margin-left: 5px;
+            font-weight: bold;
+        }
+
+        .security {
+            margin-top: 30px;
+            text-align: center;
+            color: #98a2aa;
+            font-size: 12px;
+        }
+
+        @media (max-width: 800px) {
+            .right-panel {
+                padding: 30px 22px;
+            }
+
+            .mobile-logo {
+                display: block;
+            }
+
+            h1 {
+                font-size: 32px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .right-panel {
+                padding: 25px 16px;
+            }
+
+            .options {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="right-panel">
+        <div class="login-container">
+
+            <div class="mobile-logo">💬 Chat<span>App</span></div>
+
+            <h1>Welcome <span>Back</span></h1>
+            <p class="subtitle">
+                Sign in to your account to continue.
+            </p>
+
+            <div id="message" class="message" role="alert"
+                 aria-live="polite"></div>
+
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <div class="input-box">
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="you@example.com"
+                            autocomplete="email"
+                            required>
+                        <span class="input-icon">✉</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <div class="input-box">
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required>
+
+                        <button
+                            type="button"
+                            class="toggle-password"
+                            id="togglePassword"
+                            aria-label="Show password">◉</button>
+                    </div>
+                </div>
+
+                <div class="options">
+                    <label class="remember">
+                        <input type="checkbox" id="rememberMe">
+                        Remember me
+                    </label>
+
+                    <a href="forgot-password.html">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-button" id="loginButton">
+                    Log In →
+                </button>
+            </form>
+
+            <div class="divider">or</div>
+
+            <button type="button" class="google-button" id="googleButton">
+                <span class="google-icon">G</span>
+                Continue with Google
+            </button>
+
+            <p class="signup">
+                Don't have an account?
+                <a href="register.html">Sign Up</a>
+            </p>
+
+            <p class="security">🔒 Your conversations deserve privacy.</p>
+        </div>
+    </main>
+
+    <!-- Supabase JavaScript client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        // Supabase project configuration.
+        // Use your publishable key here, never your secret/service_role key.
+        const SUPABASE_URL = "https://ukyfgyrmcwolczqrrcfj.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_vK7hfRduvDiFoN06clnzvQ_1K2STxf_";
+
+        const { createClient } = window.supabase;
+
+        const supabaseClient = createClient(
+            SUPABASE_URL,
+            SUPABASE_PUBLISHABLE_KEY,
+            {
+                auth: {
+                    persistSession: true,
+                    autoRefreshToken: true,
+                    detectSessionInUrl: true
+                }
+            }
+        );
+
+        const form = document.getElementById("loginForm");
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const loginButton = document.getElementById("loginButton");
+        const googleButton = document.getElementById("googleButton");
+        const message = document.getElementById("message");
+        const rememberMe = document.getElementById("rememberMe");
+
+        function showMessage(text, type = "error") {
+            message.textContent = text;
+            message.className = "message " + type;
+        }
+
+        function clearMessage() {
+            message.textContent = "";
+            message.className = "message";
+        }
+
+        // Show or hide the password.
+        document.getElementById("togglePassword").addEventListener(
+            "click",
+            function () {
+                const hidden = passwordInput.type === "password";
+
+                passwordInput.type = hidden ? "text" : "password";
+                this.textContent = hidden ? "◎" : "◉";
+                this.setAttribute(
+                    "aria-label",
+                    hidden ? "Hide password" : "Show password"
+                );
+            }
+        );
+
+        // Sign in with Supabase Auth.
+        form.addEventListener("submit", async function (event) {
+            event.preventDefault();
+            clearMessage();
+
+            const email = emailInput.value.trim();
+            const password = passwordInput.value;
+
+            if (!email || !password) {
+                showMessage("Please enter your email and password.");
+                return;
+            }
+
+            loginButton.disabled = true;
+            loginButton.textContent = "Signing in...";
+
+            try {
+                const { data, error } =
+                    await supabaseClient.auth.signInWithPassword({
+                        email: email,
+                        password: password
+                    });
+
+                if (error) {
+                    console.error("Supabase login error:", error);
+
+                    const errorText = (error.message || "").toLowerCase();
+
+                    if (errorText.includes("email not confirmed")) {
+                        throw new Error(
+                            "Your email has not been verified. " +
+                            "Please check your inbox for a confirmation email."
+                        );
+                    }
+
+                    if (errorText.includes("invalid login credentials")) {
+                        throw new Error(
+                            "Incorrect email or password. Please try again."
+                        );
+                    }
+
+                    throw new Error(
+                        error.message || "Login failed. Please try again."
+                    );
+                }
+
+                if (!data.session) {
+                    throw new Error(
+                        "No active session was returned. Please try again."
+                    );
+                }
+
+                // The session is persisted by Supabase in this browser.
+                showMessage(
+                    "Login successful! Redirecting...",
+                    "success"
+                );
+
+                // Change this if your chat page has a different filename.
+                window.location.href = "messages.html";
+
+            } catch (error) {
+                console.error("Login error:", error);
+                showMessage(
+                    error.message || "Unable to log in. Please try again."
+                );
+            } finally {
+                loginButton.disabled = false;
+                loginButton.textContent = "Log In →";
+            }
+        });
+
+        // Google OAuth requires Google to be enabled in Supabase.
+        googleButton.addEventListener("click", async function () {
+            clearMessage();
+            googleButton.disabled = true;
+
+            try {
+                const { error } =
+                    await supabaseClient.auth.signInWithOAuth({
+                        provider: "google",
+                        options: {
+                            redirectTo: window.location.origin + "/chat.html"
+                        }
+                    });
+
+                if (error) {
+                    throw error;
+                }
+
+            } catch (error) {
+                console.error("Google login error:", error);
+
+                showMessage(
+                    error.message ||
+                    "Google login failed. Check your Supabase Google provider settings."
+                );
+
+                googleButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
